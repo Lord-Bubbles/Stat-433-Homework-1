@@ -3,8 +3,8 @@ Homework 1
 Justin Li
 2022-09-24
 
-\#1: How many flights have a missing dep_time? What other variables are
-missing? \# What might these rows represent?
+1.  How many flights have a missing dep_time? What other variables are
+    missing? What might these rows represent?
 
 ``` r
 flights %>%
@@ -29,16 +29,14 @@ flights %>%
     ## #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
     ## #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 
-# 8255 flights have a missing dep_time. Other variables that are missing are
+8255 flights have a missing dep_time. Other variables that are missing
+are dep_delay, arr_time, arr_delay, and air_time. These rows suggest
+that these flights were canceled.
 
-# dep_delay, arr_time, arr_delay, and air_time. These rows suggest that these
-
-# flights were canceled.
-
-\#2. Currently dep_time and sched_dep_time are convenient to look at,
-but hard to \# compute with because they’re not really continuous
-numbers. Convert them to a \# more convenient representation of number
-of minutes since midnight.
+2.  Currently dep_time and sched_dep_time are convenient to look at, but
+    hard to compute with because they’re not really continuous numbers.
+    Convert them to a more convenient representation of number of
+    minutes since midnight.
 
 ``` r
 flights %>%
@@ -47,10 +45,10 @@ flights %>%
            (sched_dep_time %% 60)) %>% View
 ```
 
-\#3 Look at the number of canceled flights per day. Is there a pattern?
-Is the \# proportion of canceled flights related to the average delay?
-Use multiple \# dyplr operations, all on one line, concluding with \#
-ggplot(aes(x= ,y=)) + geom_point()
+3.  Look at the number of canceled flights per day. Is there a pattern?
+    Is the proportion of canceled flights related to the average delay?
+    Use multiple dyplr operations, all on one line, concluding with
+    ggplot(aes(x= ,y=)) + geom_point().
 
 ``` r
 flights %>%
@@ -62,6 +60,7 @@ flights %>%
   ggplot(aes(x = proportion_canceled_flights, y = avg_delay)) + geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- --> \# It seems
-like as the proportion of canceled flights increases, so does the \#
-average delay.
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+It seems like as the proportion of canceled flights increases, so does
+the average delay.
