@@ -75,10 +75,10 @@ flights %>%
             total_flights = n(),
             canceled_flights = sum(is.na(dep_delay)),
             prop_canceled_flights = canceled_flights / total_flights) %>%
-  ggplot(aes(x = prop_canceled_flights, y = avg_delay)) + geom_point()
+  ggplot(aes(x = avg_delay, y = prop_canceled_flights)) + geom_point()
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-It seems like as proportion of canceled flights increases, so does the
-average delay.
+It seems like as average delay increases, so does the proportion of
+canceled flights.
