@@ -29,9 +29,9 @@ flights %>%
     ## #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
     ## #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 
-8255 flights have a missing dep_time. Other variables that are missing
-are dep_delay, arr_time, arr_delay, and air_time. These rows suggest
-that these flights were canceled.
+There are 8255 flights that have a missing dep_time. Other variables
+that are missing are dep_delay, arr_time, arr_delay, and air_time. These
+rows suggest that these rows were canceled.
 
 2.  Currently dep_time and sched_dep_time are convenient to look at, but
     hard to compute with because they’re not really continuous numbers.
@@ -40,9 +40,8 @@ that these flights were canceled.
 
 ``` r
 flights %>%
-  mutate(new_dep_time = ((dep_time %/% 100) * 60) + (dep_time %% 100), 
-         new_sched_dep_time = ((sched_dep_time %/% 100) * 60) + 
-           (sched_dep_time %% 60)) 
+  mutate(new_dep_time = ((dep_time %/% 100) * 60) + dep_time %% 100,
+   new_sched_dep_time = ((sched_dep_time %/% 100) * 60) + sched_dep_time %% 100)
 ```
 
     ## # A tibble: 336,776 × 21
@@ -73,13 +72,13 @@ flights %>%
 flights %>%
   group_by(day) %>%
   summarise(avg_delay = mean(dep_delay, na.rm = T),
-            canceled_flights = sum(is.na(dep_delay)),
             total_flights = n(),
-            proportion_canceled_flights = canceled_flights / total_flights) %>%
-  ggplot(aes(x = proportion_canceled_flights, y = avg_delay)) + geom_point()
+            canceled_flights = sum(is.na(dep_delay)),
+            prop_canceled_flights = canceled_flights / total_flights) %>%
+  ggplot(aes(x = prop_canceled_flights, y = avg_delay)) + geom_point()
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-It seems like as the proportion of canceled flights increases, so does
-the average delay.
+It seems like as proportion of canceled flights increases, so does the
+average delay.
